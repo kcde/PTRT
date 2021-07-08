@@ -1,0 +1,26 @@
+.btn {
+  text-transform: uppercase;
+  border: 1px solid var(--gunmetal);
+  padding: 8px 1rem;
+  position: relative;
+  margin-bottom: 4rem;
+  margin-right: auto;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  transition: box-shadow 250ms ease-out;
+}
+
+.btn:hover::after {
+  box-shadow: -10px 10px 1px var(--davys-grey);
+}
+.btn:active::after {
+  box-shadow: none;
+}

@@ -1,42 +1,102 @@
-.App {
+.container {
+  background-color: white;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2rem 0 2rem 0;
+}
+.logo > p {
+  display: inline-block;
+  letter-spacing: 4px;
+}
+
+.nav {
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.nav > * + * {
+  margin-left: 1rem;
+}
+
+.nav-link {
+  position: relative;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  cursor: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 10%;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  background-color: var(--slate-gray);
+  transition: all 400ms ease-out;
+}
+
+.nav-link:hover::after {
+  width: 60%;
+}
+
+.footer {
+  background-color: var(--charleston-green);
+  color: var(--light-gray);
+  padding: 2rem;
+  text-transform: uppercase;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.socials {
+  margin-top: 1rem;
+}
+.socials a {
+  font-size: 1.2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.socials > * + * {
+  margin-left: 8px;
+}
+
+.acknwl {
+  margin-top: 1rem;
+}
+
+.acknwl a {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .socials > * + * {
+    margin-left: 1.5rem;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-button {
-  font-size: calc(10px + 2vmin);
+  .footer-grid > * + * {
+    margin-top: 0;
+  }
+  .acknwl {
+    margin-top: 0;
+  }
 }

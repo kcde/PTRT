@@ -1,0 +1,39 @@
+.photo {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  transition: all 350ms ease-in-out;
+}
+
+.photo::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.photo:hover::after {
+  opacity: 1;
+}
+
+.photo__info {
+  position: absolute;
+  color: var(--light-gray);
+  text-transform: uppercase;
+  width: 100%;
+  bottom: 20px;
+  text-align: center;
+  z-index: 5;
+  transform: scaleY(0);
+  transition: all 200ms ease-out;
+}
+
+.photo:hover .photo__info {
+  /* transform: translateY(0px); */
+  transform: scaleY(1);
+}
