@@ -53,9 +53,9 @@
 
   .photo__info {
     position: absolute;
-    bottom: 20px;
+    bottom: 1rem;
     transform: scaleY(0);
-    marginbottom: 0;
+    margin-bottom: 0;
   }
 
   .photo:hover::after {

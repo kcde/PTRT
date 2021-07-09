@@ -55,6 +55,10 @@
   width: 60%;
 }
 
+.nav .selected::after {
+  width: 100%;
+}
+
 .footer {
   background-color: var(--charleston-green);
   color: var(--light-gray);

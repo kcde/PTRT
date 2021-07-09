@@ -3,10 +3,12 @@ import axios from 'axios';
 import Photos from "./components/Photos"
 import "./App.css";
 import Button from "./components/UI/Button/Button"
+import {BrowserRouter as Router, NavLink,Route,Switch} from 'react-router-dom';
 
 const App = () => {
 
   const [photos, setPhotos] = useState([]);
+  const [isBW, setIsBW] = useState(false)
 
 
   // useEffect(() =>{
@@ -18,21 +20,24 @@ const App = () => {
   //   .then(response =>console.log(response))
   // },[])
   return (
-    <div className="container">
+    <Router>
+        <div className="container">
       <header>
         <div className="logo">
           <p>prtrts</p>
         </div>
         <nav className="nav">
-          <a href="#" className="nav-link">All</a>
-          <a href="#" className="nav-link">b/w</a>
-          <a href="#" className="nav-link">about</a>
+          <NavLink to="/" exact="true" className="nav-link" activeClassName="selected">All</NavLink>
+          <NavLink to="/bw" className="nav-link" activeClassName="selected">b/w</NavLink>
+          <NavLink to="/about" className="nav-link" activeClassName="selected">about</NavLink>
         </nav>
       </header>
       <main>
 
+<Route  path={isBW?"/bw":"/"}>
+<Photos />
 
-      <Photos />
+</Route>
 
       <Button />
       </main>
@@ -54,6 +59,8 @@ const App = () => {
         </div>
       </footer>
     </div>
+    </Router>
+
   );
 };
 
