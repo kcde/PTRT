@@ -5,6 +5,7 @@ import "./App.css";
 import Button from "./components/UI/Button/Button"
 import {BrowserRouter as Router, NavLink,Route,Switch} from 'react-router-dom';
 
+
 const App = () => {
 
   const [photos, setPhotos] = useState([]);
@@ -27,7 +28,7 @@ const App = () => {
           <p>prtrts</p>
         </div>
         <nav className="nav">
-          <NavLink to="/" exact="true" className="nav-link" activeClassName="selected">All</NavLink>
+          <NavLink to="/" exact={true} className="nav-link" activeClassName="selected">All</NavLink>
           <NavLink to="/bw" className="nav-link" activeClassName="selected">b/w</NavLink>
           <NavLink to="/about" className="nav-link" activeClassName="selected">about</NavLink>
         </nav>
@@ -36,6 +37,7 @@ const App = () => {
 
 <Route  path={isBW?"/bw":"/"}>
 <Photos />
+
 
 </Route>
 
