@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Photo from './Photo/Photo';
-import './Photos.css';
+import classes from './Photos.module.css';
 
 const Photos = () => {
   return (
-    <div className="photo-grid">
+    <div className={classes['photo-grid']}>
       <Photo
         src={
           'https://images.unsplash.com/photo-1453396450673-3fe83d2db2c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNDIyNTJ8MHwxfHNlYXJjaHwxfHxwZW9wbGV8ZW58MHwxfHxibGFja19hbmRfd2hpdGV8MTYyNTg2MTE1Mw&ixlib=rb-1.2.1&q=80&w=1080'

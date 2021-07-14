@@ -1,11 +1,8 @@
-import React from 'react'
-import './Button.css'
+import React from 'react';
+import classes from './Button.module.css';
 
 const Button = () => {
-    return (
-        <button className="btn load-more">load more</button>
+  return <button className={`${classes['btn']}`}>load more</button>;
+};
 
-    )
-}
-
-export default Button
+export default Button;
