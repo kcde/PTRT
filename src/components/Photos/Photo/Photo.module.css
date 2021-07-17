@@ -1,32 +1,44 @@
-.photo-main {
-  /* display: inline-block; */
-  width: 100%;
+.photo {
   position: relative;
   transition: all 350ms ease-in-out;
   margin-bottom: 2.5rem;
-  /* overflow: hidden; */
 }
 
-.photo-main > * {
+.photo-main,
+.photo {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.photo-main {
   border-radius: 4px;
 }
 
-.photo-main:hover {
+img {
+  display: block;
+}
+
+.photo:hover {
   cursor: none;
 }
 
-.photo-main::after {
+.photo::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
+  height: 100%;
+  right: 0;
   width: 100%;
-  height: 99.4%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 300ms ease-out;
   z-index: 10;
   border-radius: 4px;
+}
+
+.photo-main {
+  position: relative;
 }
 
 .photo__info {
@@ -53,21 +65,13 @@
 canvas {
   position: absolute;
   width: 100%;
-  height: 90%;
+  height: 95%;
   top: 0;
-  bottom: 0%;
   left: 0;
-  right: 0;
-  z-index: 0;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
-  .photo-main {
-    margin-bottom: 12px;
-  }
-}
-
-@media (min-width: 1024px) {
   .photo:hover .photo__info {
     opacity: 1;
   }
@@ -80,15 +84,11 @@ canvas {
     z-index: 20;
   }
 
-  .photo-main {
-    position: static;
-  }
-
   .photo {
-    position: relative;
+    margin-bottom: 12px;
   }
 
-  .photo-main:hover::after {
+  .photo:hover::after {
     opacity: 1;
   }
 }

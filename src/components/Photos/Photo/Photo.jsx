@@ -4,36 +4,24 @@ import { BlurhashCanvas } from 'react-blurhash';
 
 import classes from './Photo.module.css';
 
-const Photo = ({ src }) => {
-  const loadedHandler = () => {
-    setLoaded(true);
-  };
+const Photo = ({ photoData }) => {
+  const { alt_description, blur_hash, urls, user } = photoData;
 
   const photoInfo = (
     <div className={classes.photo__info}>
       <div className={classes['photo__info-img']}>
-        <img
-          src="https://images.unsplash.com/profile-1599446683222-b1e5543a0b3dimage?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128"
-          alt=""
-        />
+        <img src={user.profile_image.medium} alt={user.name} />
       </div>
-      <p className={classes['photo__info-name']}>constantine</p>
+      <a className={classes['photo__info-name']}>{user.username}</a>
     </div>
   );
 
   return (
     <div className={classes.photo}>
       {photoInfo}
-
       <div className={classes['photo-main']}>
-        {' '}
-        <BlurhashCanvas hash="L13[xT-;4nIU-;WB9FIUD%Rj%Mt7" width={32} height={32} punch={1} />
-        <img
-          style={{ position: 'relative', zIndex: 1 }}
-          src={src}
-          alt="photo 1"
-          onLoad={loadedHandler}
-        />
+        <BlurhashCanvas hash={blur_hash} width={32} height={32} punch={1} />
+        <img style={{ position: 'relative', zIndex: 2 }} src={urls.regular} alt={alt_description} />
       </div>
     </div>
   );
