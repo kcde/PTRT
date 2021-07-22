@@ -11,11 +11,14 @@ const App = () => {
   const location = useLocation();
   const [photos, setPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
-  const [pageCount, setPageCount] = useState(2);
+  const [pageCount, setPageCount] = useState(1);
   const url = 'https://api.unsplash.com/search/photos?query=people&per_page=30';
   const BWUrl =
     'https://api.unsplash.com/search/photos?query=people&per_page=15&color=black_and_white';
 
+  const loadMoreHandler = () => {
+    setPageCount(pageCount + 1);
+  };
   const getPhotos = (url, setStateFunction) => {
     console.log(url);
     axios
@@ -47,7 +50,7 @@ const App = () => {
           </Route>
         </Switch>
 
-        <Button />
+        <Button loadMore={loadMoreHandler} />
       </main>
 
       <Footer />
