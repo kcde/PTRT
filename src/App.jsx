@@ -12,9 +12,8 @@ const App = () => {
   const [photos, setPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
   const [pageCount, setPageCount] = useState(1);
-  const url = 'https://api.unsplash.com/search/photos?query=people&per_page=30';
-  const BWUrl =
-    'https://api.unsplash.com/search/photos?query=people&per_page=15&color=black_and_white';
+  const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
+  const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
 
   const loadMoreHandler = () => {
     setPageCount(pageCount + 1);
@@ -28,7 +27,8 @@ const App = () => {
         },
       })
       .then((response) => {
-        setStateFunction(response.data.results);
+        setStateFunction(response.data);
+        console.log(response.data);
       });
   };
 

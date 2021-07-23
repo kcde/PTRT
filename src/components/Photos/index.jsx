@@ -9,8 +9,8 @@ const Photos = ({ photos, pageCounter }) => {
     <div className={classes['photo-grid']}>
       {photos.slice(0, pageCounter * 5).map((photo) => {
         return (
-          <LazyLoad once>
-            <Photo key={photo.id} photoData={photo} />
+          <LazyLoad key={photo.id} once>
+            <Photo photoData={photo} />
           </LazyLoad>
         );
       })}
