@@ -9,7 +9,8 @@ import { NavLink, Route, Switch, useLocation } from 'react-router-dom';
 
 const App = () => {
   const location = useLocation();
-  const [photos, setPhotos] = useState([]);
+  const [allPhotos, setAllPhotos] = useState([]);
+  const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
@@ -19,7 +20,6 @@ const App = () => {
     setPageCount(pageCount + 1);
   };
   const getPhotos = (url, setStateFunction) => {
-    console.log(url);
     axios
       .get(url, {
         headers: {
@@ -28,13 +28,29 @@ const App = () => {
       })
       .then((response) => {
         setStateFunction(response.data);
-        console.log(response.data);
       });
   };
 
   useEffect(() => {
-    getPhotos(url, setPhotos);
+    getPhotos(url, setColoredPhotos);
     getPhotos(BWUrl, setBWPhotos);
+    setAllPhotos([...coloredPhotos, ...BWPhotos]);
+    //combining both black and white and colored photos to one array
+    let newAllPhotos = [...BWPhotos, ...coloredPhotos];
+
+    //sorting combined arrays with date created
+    let sortedAllPhotos = newAllPhotos.sort((firstEl, secondEl) => {
+      if (firstEl['created_at'] < secondEl['created_at']) {
+        return 1;
+      }
+      if (firstEl['created_at'] > secondEl['created_at']) {
+        return -1;
+      }
+
+      return 0;
+    });
+    setAllPhotos(sortedAllPhotos);
+    console.log(sortedAllPhotos);
   }, []);
   return (
     <div className={classes.container}>
@@ -44,7 +60,7 @@ const App = () => {
           <Route exact path="/about" component={''} />
           <Route path="/">
             <Photos
-              photos={location.pathname === '/' ? photos : BWPhotos}
+              photos={location.pathname === '/' ? allPhotos : BWPhotos}
               pageCounter={pageCount}
             />
           </Route>
