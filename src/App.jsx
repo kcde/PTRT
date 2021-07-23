@@ -5,13 +5,13 @@ import classes from './App.module.css';
 import Button from './components/UI/Button/Button';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import { NavLink, Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
 const App = () => {
   const location = useLocation();
-  const [allPhotos, setAllPhotos] = useState([]);
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
+  const [allPhotos, setAllPhotos] = useState([...coloredPhotos, ...BWPhotos]);
   const [pageCount, setPageCount] = useState(1);
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
   const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
@@ -28,18 +28,14 @@ const App = () => {
       })
       .then((response) => {
         setStateFunction(response.data);
+        //updating all photos as response is received
+        setAllPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
       });
   };
 
-  useEffect(() => {
-    getPhotos(url, setColoredPhotos);
-    getPhotos(BWUrl, setBWPhotos);
-    setAllPhotos([...coloredPhotos, ...BWPhotos]);
-    //combining both black and white and colored photos to one array
-    let newAllPhotos = [...BWPhotos, ...coloredPhotos];
-
+  const sort = (arr) => {
     //sorting combined arrays with date created
-    let sortedAllPhotos = newAllPhotos.sort((firstEl, secondEl) => {
+    return arr.sort((firstEl, secondEl) => {
       if (firstEl['created_at'] < secondEl['created_at']) {
         return 1;
       }
@@ -49,8 +45,13 @@ const App = () => {
 
       return 0;
     });
-    setAllPhotos(sortedAllPhotos);
-    console.log(sortedAllPhotos);
+  };
+
+  useEffect(() => {
+    if (!coloredPhotos.length && !BWPhotos.length) {
+      getPhotos(url, setColoredPhotos);
+      getPhotos(BWUrl, setBWPhotos);
+    }
   }, []);
   return (
     <div className={classes.container}>
@@ -60,7 +61,7 @@ const App = () => {
           <Route exact path="/about" component={''} />
           <Route path="/">
             <Photos
-              photos={location.pathname === '/' ? allPhotos : BWPhotos}
+              photos={location.pathname === '/' ? sort(allPhotos) : BWPhotos}
               pageCounter={pageCount}
             />
           </Route>
