@@ -1,10 +1,10 @@
 import React from 'react';
 import classes from './Button.module.css';
 
-const Button = ({ loadMore }) => {
+const Button = ({ loadMore, children }) => {
   return (
     <button className={`${classes['btn']}`} onClick={() => loadMore()}>
-      load more
+      {children}
     </button>
   );
 };

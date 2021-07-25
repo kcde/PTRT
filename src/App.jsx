@@ -13,6 +13,7 @@ const App = () => {
   const [BWPhotos, setBWPhotos] = useState([]);
   const [allPhotos, setAllPhotos] = useState([...coloredPhotos, ...BWPhotos]);
   const [pageCount, setPageCount] = useState({ all: 1, bw: 1 });
+  const [btnText, setBtnText] = useState('load more');
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
   const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
 
@@ -26,6 +27,10 @@ const App = () => {
 
     if (currentRoute === '/bw') {
       setPageCount({ ...pageCount, bw: pageCount.bw + 1 });
+      if (pageCount.bw === 3) {
+        console.log('gotten');
+        setBtnText('no more');
+      }
     }
   };
   const getPhotos = (url, setStateFunction) => {
@@ -56,12 +61,28 @@ const App = () => {
     });
   };
 
+  const isThereMore = () => {
+    if (location.pathname === '/') {
+      if (pageCount.all >= 9) {
+        return false;
+      }
+    }
+    if (location.pathname === '/bw') {
+      if (pageCount.bw >= 3) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   useEffect(() => {
     if (!coloredPhotos.length && !BWPhotos.length) {
       getPhotos(url, setColoredPhotos);
       getPhotos(BWUrl, setBWPhotos);
     }
   }, []);
+
   return (
     <div className={classes.container}>
       <Header />
@@ -73,7 +94,9 @@ const App = () => {
               photos={location.pathname === '/' ? sort(allPhotos) : BWPhotos}
               pageCounter={location.pathname === '/' ? pageCount.all : pageCount['bw']}
             />
-            <Button loadMore={loadMoreHandler} />
+            <Button loadMore={isThereMore() ? loadMoreHandler : null}>
+              {isThereMore() ? 'load more' : 'no more'}
+            </Button>
           </Route>
         </Switch>
       </main>
