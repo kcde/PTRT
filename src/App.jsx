@@ -12,12 +12,21 @@ const App = () => {
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
   const [allPhotos, setAllPhotos] = useState([...coloredPhotos, ...BWPhotos]);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState({ all: 1, bw: 1 });
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
   const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
 
   const loadMoreHandler = () => {
-    setPageCount(pageCount + 1);
+    const currentRoute = location.pathname;
+    // const countToChange = currentRoute === '/' ? 'all' : 'bw';
+    // setPageCount({ ...pageCount, countToChange: pageCount[{ countToChange }] + 1 });
+    if (currentRoute === '/') {
+      setPageCount({ ...pageCount, all: pageCount.all + 1 });
+    }
+
+    if (currentRoute === '/bw') {
+      setPageCount({ ...pageCount, bw: pageCount.bw + 1 });
+    }
   };
   const getPhotos = (url, setStateFunction) => {
     axios
@@ -62,12 +71,11 @@ const App = () => {
           <Route path="/">
             <Photos
               photos={location.pathname === '/' ? sort(allPhotos) : BWPhotos}
-              pageCounter={pageCount}
+              pageCounter={location.pathname === '/' ? pageCount.all : pageCount['bw']}
             />
+            <Button loadMore={loadMoreHandler} />
           </Route>
         </Switch>
-
-        <Button loadMore={loadMoreHandler} />
       </main>
 
       <Footer />
