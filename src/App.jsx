@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import Photos from './components/Photos';
 import classes from './App.module.css';
@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 const App = () => {
+  const mainContainer = useRef(null);
   const location = useLocation();
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
@@ -16,11 +17,9 @@ const App = () => {
   const [btnText, setBtnText] = useState('load more');
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
   const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
-
   const loadMoreHandler = () => {
     const currentRoute = location.pathname;
-    // const countToChange = currentRoute === '/' ? 'all' : 'bw';
-    // setPageCount({ ...pageCount, countToChange: pageCount[{ countToChange }] + 1 });
+
     if (currentRoute === '/') {
       setPageCount({ ...pageCount, all: pageCount.all + 1 });
     }
