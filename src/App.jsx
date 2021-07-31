@@ -14,10 +14,8 @@ const App = () => {
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [loaded, setLoaded] = useState(false);
   const [allPhotos, setAllPhotos] = useState([...coloredPhotos, ...BWPhotos]);
   const [pageCount, setPageCount] = useState({ all: 1, bw: 1 });
-  const [btnText, setBtnText] = useState('load more');
   const url = 'https://api.unsplash.com/collections/zbhckmbH8xI/photos?per_page=30';
   const BWUrl = 'https://api.unsplash.com/collections/KzzhCSiDhYE/photos?per_page=30';
   const loadMoreHandler = () => {
@@ -29,10 +27,6 @@ const App = () => {
 
     if (currentRoute === '/bw') {
       setPageCount({ ...pageCount, bw: pageCount.bw + 1 });
-      if (pageCount.bw === 3) {
-        console.log('gotten');
-        setBtnText('no more');
-      }
     }
   };
   const getPhotos = (url, setStateFunction) => {
@@ -46,7 +40,6 @@ const App = () => {
         setStateFunction(response.data);
         //updating all photos as response is received
         setAllPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
-        setLoaded(true);
       });
   };
 
@@ -94,8 +87,6 @@ const App = () => {
   //useEffect for scroll position change
 
   useEffect(() => {
-    console.log(mainContainer.current.scrollTop);
-
     window.addEventListener('scroll', () => {
       setScrollPosition(window.scrollY);
       // console.log(window.scrollY);
