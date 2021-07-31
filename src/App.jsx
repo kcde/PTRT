@@ -5,6 +5,7 @@ import classes from './App.module.css';
 import Button from './components/UI/Button/Button';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import ScrollToTop from './components/UI/ScrollToTop/ScrollToTop';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 const App = () => {
@@ -12,6 +13,8 @@ const App = () => {
   const location = useLocation();
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const [allPhotos, setAllPhotos] = useState([...coloredPhotos, ...BWPhotos]);
   const [pageCount, setPageCount] = useState({ all: 1, bw: 1 });
   const [btnText, setBtnText] = useState('load more');
@@ -43,6 +46,7 @@ const App = () => {
         setStateFunction(response.data);
         //updating all photos as response is received
         setAllPhotos((prevPhotos) => [...prevPhotos, ...response.data]);
+        setLoaded(true);
       });
   };
 
@@ -75,6 +79,11 @@ const App = () => {
     return true;
   };
 
+  const scrollTopHandler = () => {
+    window.scroll(0, 0);
+  };
+
+  //useEffect for API call
   useEffect(() => {
     if (!coloredPhotos.length && !BWPhotos.length) {
       getPhotos(url, setColoredPhotos);
@@ -82,8 +91,19 @@ const App = () => {
     }
   }, []);
 
+  //useEffect for scroll position change
+
+  useEffect(() => {
+    console.log(mainContainer.current.scrollTop);
+
+    window.addEventListener('scroll', () => {
+      setScrollPosition(window.scrollY);
+      // console.log(window.scrollY);
+    });
+  }, [scrollPosition]);
+
   return (
-    <div className={classes.container}>
+    <div className={classes.container} ref={mainContainer}>
       <Header />
       <main>
         <Switch>
@@ -100,6 +120,7 @@ const App = () => {
         </Switch>
       </main>
 
+      {scrollPosition > 500 ? <ScrollToTop scrollBack={scrollTopHandler} /> : null}
       <Footer />
     </div>
   );
