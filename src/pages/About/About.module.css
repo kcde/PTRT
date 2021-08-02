@@ -1,0 +1,27 @@
+.about {
+  margin-top: 10rem;
+  margin-bottom: 25rem;
+  line-height: 1.6;
+  display: inline-block;
+  padding: 1.5rem;
+  border: 1px solid var(--charleston-green);
+  box-shadow: -10px 10px 1px var(--davys-grey);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  display: inline-block;
+  letter-spacing: 4px;
+}
+
+.createText,
+.useText {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.useText {
+}

@@ -5,6 +5,7 @@ import classes from './App.module.css';
 import Button from './components/UI/Button/Button';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import About from './pages/About/About';
 import ScrollToTop from './components/UI/ScrollToTop/ScrollToTop';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
@@ -98,7 +99,7 @@ const App = () => {
       <Header />
       <main>
         <Switch>
-          <Route exact path="/about" component={''} />
+          <Route exact path="/about" component={About} />
           <Route path="/">
             <Photos
               photos={location.pathname === '/' ? sort(allPhotos) : BWPhotos}
