@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Photos from './components/Photos';
 import classes from './App.module.css';
@@ -7,10 +8,8 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import About from './pages/About/About';
 import ScrollToTop from './components/UI/ScrollToTop/ScrollToTop';
-import { Route, Switch, useLocation } from 'react-router-dom';
 
 const App = () => {
-  const mainContainer = useRef(null);
   const location = useLocation();
   const [coloredPhotos, setColoredPhotos] = useState([]);
   const [BWPhotos, setBWPhotos] = useState([]);
@@ -86,7 +85,6 @@ const App = () => {
   }, []);
 
   //useEffect for scroll position change
-
   useEffect(() => {
     window.addEventListener('scroll', () => {
       setScrollPosition(window.scrollY);
@@ -95,7 +93,7 @@ const App = () => {
   }, [scrollPosition]);
 
   return (
-    <div className={classes.container} ref={mainContainer}>
+    <div className={classes.container}>
       <Header />
       <main>
         <Switch>

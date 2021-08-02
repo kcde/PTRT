@@ -9,6 +9,7 @@
 .photo-grid {
   width: 95%;
   margin: 0 auto 2rem auto;
+  position: relative;
 }
 
 @media (min-width: 768px) {
